@@ -1,4 +1,4 @@
-# Dyadic Decomposition Algorithm
+# Dyadic Retrieval Algorithm
 
 Let $n \in \mathbb{N}$<br> 
 Define $D(n)$ as the set of dyadic components (powers of two) whose sum equals $n$.
