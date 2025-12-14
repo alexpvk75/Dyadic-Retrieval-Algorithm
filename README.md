@@ -1,28 +1,146 @@
-# Dyadic Retrieval Algorithm
+# Dyadic Retrieval Algorithm - CLI v.2.1.0
 
-## What is this?
+A **simple Python terminal program** to manage a list of items (superset) and create smaller groups (subsets) using a clever math trick called **dyadic retrieval algorithm**. Each item in a subset can only appear once, and the program keeps everything saved for later.
 
-This is a fun little program that lets you create groups of items and use the "dyadic algorithm" to break down numbers into powers of 2. It's a cool way to organize data using binary math!
+---
 
-## How it Works
+## Features
 
-The program has a **superset** - a master list of all possible items. Then you can create **subsets** - smaller groups of items you want. Each item is assigned a power of 2 (like 1, 2, 4, 8, 16, etc.), and when you add items to a group, it adds up their values.
+- Add items to a **superset** (your master list)  
+- Create **subsets** from items in the superset  
+- Show any subset or all subsets  
+- Show all items in the superset  
+- Friendly **colored terminal output**  
 
-The dyadic algorithm then takes that sum and breaks it back down into the original powers of 2 to show you which items are in that group.
+---
 
-## How to Use It
+## Requirements
 
-1. Add items to `superset.txt` from `Data` folder
-2. Run `main.py` from the Python folder
-2. You'll see a menu with 4 options:
-   - **Create a subset** - Make a new group and add items to it
-   - **Output a subset** - See what items are in a specific group
-   - **Show all subsets** - View all your groups and their items
-   - **Show all items** - List everything in the superset
-4. Your groups are saved automatically to `subsets.json`
+- Python 3.10+ (should work on most Python 3 versions)  
+- Terminal (Linux, macOS, Windows Terminal, or VS Code terminal)  
+- No extra Python packages required  
 
-## Files
+> ⚠ On old Windows `cmd.exe`, colors may not work. Use **Windows Terminal** or **VS Code** terminal for full experience.
 
-- `superset.txt` - All the available items you can add
-- `subsets.json` - Your saved groups (created when you add items)
-- `main.py` - The program itself
+---
+
+## Getting Started
+
+1. **Download the code** to a folder on your computer.  
+2. Open a terminal and navigate to that folder.  
+3. Run the program:
+
+```bash
+python main.py
+```
+You’ll see a menu like this:
+```bash
+=== Menu ===
+0. Exit
+1. Form the superset
+2. Show the superset
+3. Create a subset
+4. Output a subset
+5. Show all subsets
+```
+
+---
+
+### How to Use
+
+---
+1. **Form the superset**
+- Choose option 1
+- Type items you want in your master list, one at a time
+- Type X when you’re done
+> You will get colored messages:
+>   - Green = item added<br>
+>   - Yellow = item already exists
+2. **Show the superset**
+- Choose option 2
+- See all items you have in your superset
+
+3. **Create a subset**
+- Choose option 3
+- Give your subset a name
+- Add items from your superset, one by one
+- Type X to finish the subset
+> Messages:
+>   - Green = item added<br>
+>   - Yellow = item already in subset<br>
+>   - Red = item not in superset<br>
+
+> You cannot create a subset until you have at least one item in the superset.
+
+4. **Output a subset**
+- Choose option 4
+- Type the name of a subset
+- See all items in that subset
+- Type X to stop
+
+5. **Show all subsets**
+- Choose option 5
+- Shows all your subsets and their items at once
+
+0. **Exit**
+- Choose option 0 to safely exit the program
+
+---
+
+### Notes
+
+---
+> Subsets are saved automatically in `subsets.json`
+
+> Superset items are saved in `superset.txt`
+
+> The program prevents duplicates in subsets
+
+---
+
+### The Math behind it all
+
+---
+Let $n \in \mathbb{N}$.
+
+Define $D(n)$ as the set of dyadic components (powers of two) whose sum equals $n$.
+
+We define $D(n)$ recursively as:
+
+```math
+D(n) =
+\begin{cases}
+\emptyset, & \text{if } n = 0, \\
+\{ 2^{k} \} \cup D(n - 2^{k}), & \text{if } n > 0,
+\end{cases}
+```
+
+where
+
+```math
+k = \left\lfloor \log_{2}(n) \right\rfloor.
+```
+
+Thus, the algorithm repeatedly selects the highest power of two not exceeding $n$, subtracts it, and recurses on the remainder.
+
+
+## Example
+
+For $n = 13$:
+
+```math
+\begin{aligned}
+D(13) &= \{2^{\lfloor \log_2 13 \rfloor}\} \cup D(13 - 8)
+      = \{8\} \cup D(5), \\
+D(5)  &= \{2^{\lfloor \log_2 5 \rfloor}\} \cup D(5 - 4)
+      = \{4\} \cup D(1), \\
+D(1)  &= \{1\} \cup D(0), \\
+D(0)  &= \emptyset.
+\end{aligned}
+```
+
+Therefore:
+
+```math
+D(13) = \{8, 4, 1\}.
+```
