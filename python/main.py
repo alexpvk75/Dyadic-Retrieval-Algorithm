@@ -46,7 +46,7 @@ def save_subsets():
         json.dump(subsets, f, indent=4)
 
 def create_superset():
-    print("\033[34m=== Superset Creation ===\033[0m")
+    print("\033[34m=== Superset ===\033[0m")
     while True:
         item = input("Insert an item (X to stop): ").strip()
         if item.upper() == "X":
@@ -62,6 +62,9 @@ def create_superset():
         print("\033[32mItem added\033[0m")
 
 def create_subset():
+    if not superset:
+        print("\033[33mSuperset is empty\033[0m")
+        return
     print("\033[34m=== Subset Creation ===\033[0m")
     while True:
         name = input("Create a subset named (X to stop): ").strip()
@@ -135,11 +138,11 @@ def all_data():
 def main():
     menu = [
         "0. Exit",
-        "1. Create the superset",
-        "2. Create a subset",
-        "3. Output a subset",
-        "4. Show all subsets",
-        "5. Show all items"
+        "1. Form the superset",
+        "2. Show the superset",
+        "3. Create a subset",
+        "4. Output a subset",
+        "5. Show all subsets"
     ]
 
     while True:
@@ -160,13 +163,13 @@ def main():
         elif choice == 1:
             create_superset()
         elif choice == 2:
-            create_subset()
-        elif choice == 3:
-            output_subset()
-        elif choice == 4:
-            all_sets()
-        elif choice == 5:
             all_data()
+        elif choice == 3:
+            create_subset()
+        elif choice == 4:
+            output_subset()
+        elif choice == 5:
+            all_sets()
         else:
             print("\033[31mInvalid option. Choose a number from the menu\033[0m")
 
