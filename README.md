@@ -54,8 +54,8 @@ You’ll see a menu like this:
 - Type items you want in your master list, one at a time
 - Type X when you’re done
 > You will get colored messages:
->   - Green = item added<br>
->   - Yellow = item already exists
+>   - <span style="color: green;">Green</span> = item added<br>
+>   - <span style="color: yellow;">Yellow</span> = item already exists
 2. **Show the superset**
 - Choose option 2
 - See all items you have in your superset
@@ -66,9 +66,9 @@ You’ll see a menu like this:
 - Add items from your superset, one by one
 - Type X to finish the subset
 > Messages:
->   - Green = item added<br>
->   - Yellow = item already in subset<br>
->   - Red = item not in superset<br>
+>   - <span style="color: green;">Green</span> = item added<br>
+>   - <span style="color: yellow;">Yellow</span> = item already in subset<br>
+>   - <span style="color: red;">Red</span> = item not in superset<br>
 
 > You cannot create a subset until you have at least one item in the superset.
 
