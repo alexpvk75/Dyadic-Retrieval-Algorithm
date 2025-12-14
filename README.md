@@ -101,11 +101,11 @@ You’ll see a menu like this:
 ### The Math behind it all
 
 ---
-Let $n \in \mathbb{N}$.
+In this program, each subset is represented by a single number, called the **sum identifier**. This number, denoted as $n$, is obtained by adding powers of two corresponding to the elements present in the subset. For example, if a superset has items ["Apple", "Banana", "Cherry"], we can assign $2^0$ to "Apple", $2^1$ to "Banana", and $2^2$ to "Cherry". Then the subset {"Apple", "Cherry"} has a sum identifier $n = 2^0 + 2^2 = 5$.
 
-Define $D(n)$ as the set of dyadic components (powers of two) whose sum equals $n$.
+This sum identifier is unique for each subset because every combination of powers of two produces a different sum — this is why the algorithm is called **dyadic** (dyadic = “based on powers of two”). The function $D(n)$ recovers the original elements from the sum by repeatedly picking the largest power of two not exceeding $n$, subtracting it, and recursing on the remainder. This guarantees that every element in the subset appears only once.
 
-We define $D(n)$ recursively as:
+We define $D(n)$ as:
 
 ```math
 D(n) =
@@ -115,16 +115,9 @@ D(n) =
 \end{cases}
 ```
 
-where
+>Note: unlike formulas using $k = \left\lfloor \log_{2}(n) \right\rfloor$ here we select $k$ iteratively: starting from 0, we increase $k$ until $2^{k+1} > n$ then pick $2^k$
 
-```math
-k = \left\lfloor \log_{2}(n) \right\rfloor.
-```
-
-Thus, the algorithm repeatedly selects the highest power of two not exceeding $n$, subtracts it, and recurses on the remainder.
-
-
-## Example
+### Example
 
 For $n = 13$:
 
@@ -143,4 +136,10 @@ Therefore:
 
 ```math
 D(13) = \{8, 4, 1\}.
+```
+
+Verifying:
+
+```math
+8+4+1=13
 ```
